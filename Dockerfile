@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:precise
 MAINTAINER Hiroaki Nakamura <hnakamur@gmail.com>
 
 RUN apt-get update -y \
@@ -12,8 +12,9 @@ RUN curl -sSfO https://raw.githubusercontent.com/brson/multirust/master/blastoff
  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 RUN cd /root \
- && git clone https://github.com/majorz/apache2-rs \
+ && git clone https://github.com/hnakamur/apache2-rs \
  && cd apache2-rs/examples/mod_hello \
+ && git checkout support_apache2.2 \
  && cargo build --release \
  && cp target/release/libmod_hello.so /usr/lib/apache2/modules/mod_hello.so \
  && echo 'LoadModule hello_module /usr/lib/apache2/modules/mod_hello.so' > /etc/apache2/mods-available/hello.load \
